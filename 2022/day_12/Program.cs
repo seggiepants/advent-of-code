@@ -190,6 +190,7 @@ namespace advent_of_code_2022
             }
             Tuple<int, int> source = new(data.startX, data.startY);
             Tuple<int, int> target = new(data.targetX, data.targetY);
+            Tuple<int, int> nullValue = new(-1, -1);
             List<Tuple<int, int>> path = new();
             if((prev.Keys.Contains(target)) || (target.Equals(source)))
             {
@@ -200,11 +201,14 @@ namespace advent_of_code_2022
                     if (target.Equals(source))
                         break;
 
-                    ok = prev.Keys.Contains(target);                        
+                    ok = prev.Keys.Contains(target) && !prev[target].Equals(nullValue);                        
                     if (ok)
                     {
                         target = prev[target];
+                        if (path.Contains(target))
+                            ok = false;
                     }
+
                 }
                 /*
                 foreach(Tuple<int, int> node in path)
@@ -224,7 +228,10 @@ namespace advent_of_code_2022
             Console.WriteLine("");
             */
             // 523 is too high for part 2
-            return path.Count - 1; 
+            if (target.Equals(source))
+                return path.Count - 1; 
+            else
+                return int.MaxValue;
         }
 
         static int Part1(Map data)
