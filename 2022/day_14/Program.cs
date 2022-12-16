@@ -299,7 +299,7 @@ namespace advent_of_code_2022
             {
                 done = Simulate2(data, dropPoint, maxY + 2);
             }
-            // PrintData(data);
+            PrintData(data);
             return CountSand(data);
  
         }
